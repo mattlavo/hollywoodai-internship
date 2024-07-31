@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+@layer components {
+  .row {
+    @apply mx-auto py-0 px-5 container;
+  }
+  .header-background {
+    background: linear-gradient(
+      120deg,
+      #70acd4 0%,
+      #ca71ff 20%,
+      #8469cc 30%,
+      #4882e6 50%,
+      #8469cc 70%,
+      #70acd4 100%
+    );
+    background-size: 200% 200%;
+    animation: gradient-animation 20s ease-in-out alternate infinite;
+  }
+  .feature__iconWrapper {
+    flex: 0 0 44px;
+    height: 44px;
+    color: rgb(31, 35, 40);
+    background: rgb(242, 242, 242);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    transition: 300ms;
+  }
+}
