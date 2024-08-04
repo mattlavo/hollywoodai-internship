@@ -20,6 +20,7 @@
   .row {
     @apply mx-auto py-0 px-5 container;
   }
+
   .header-background {
     background: linear-gradient(
       120deg,
@@ -43,5 +44,9 @@
     align-items: center;
     border-radius: 8px;
     transition: 300ms;
+  }
+
+  .steps-background {
+    background-image: url('/assets/steps-bg.jpg');
   }
 }
