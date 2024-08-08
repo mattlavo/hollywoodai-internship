@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Summary() {
   return (
-    <section>
+    <section id="summary">
       <div className="py-[60px] px-0 mx-auto max-w-[1280px]">
         <div className="py-12 px-4 rounded-[32px] gap-5 container flex-col md:gap-12 lg:mx-5 xl:rounded-[50px] xl:gap-0 xl:p-20 flex md:flex-row justify-between border border-[#E5E7EB]"> {/* Summary Row */}
           <div className="w-[47%]">
