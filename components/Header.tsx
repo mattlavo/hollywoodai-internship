@@ -23,7 +23,7 @@ function Header() {
             height={0}
             style={{ width: "auto", height: "auto" }}
             alt="Bolt"
-            className="inline-block ml-4"
+            className="hidden sm:inline-block ml-4"
           />
         </h1>
         <p className="text-xl font-medium leading-6 max-w-[480px] w-full opacity-75 text-[#E5E6E6] text-center mb-5">
