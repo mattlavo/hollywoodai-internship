@@ -6,7 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { IoPerson } from "react-icons/io5";
 
 function ForgotPassword() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
