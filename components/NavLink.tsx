@@ -8,7 +8,7 @@ interface NavLinkProps {
 
 function NavLink({ link, text }: NavLinkProps) {
   return (
-    <Link href={link} className="text-sm py-[7px] px-3.5 text-[#070707] font-semibold rounded-lg transition cursor-not-allowed hover:bg-[#0000000f]">
+    <Link href={link} className="nav__link">
         {text}
     </Link>
   )
