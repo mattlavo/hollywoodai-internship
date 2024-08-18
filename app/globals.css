@@ -665,6 +665,101 @@ footer {
 /* End of Footer */
 
 
+/* DASHBOARD PAGE */
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 230px;
+  width: calc(100% - 230px);
+}
+
+/* .page-row {
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  margin: 0 auto
+} */
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: all 300ms;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  border-right: 1px solid #f1f3f4;
+  width: 230px;
+  height: 100vh;
+  background: #fff;
+}
+
+.sidebar__logo {
+  margin: 0 24px;
+}
+
+.sidebar__links {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar__links__title {
+  font-size: 10px;
+  font-weight: 500;
+  color: #565b67;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 24px 8px;
+}
+
+.sidebar__link {
+  margin: 2px 12px;
+  padding: 12px;
+  border-radius: 12px;
+  color: #565b67;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 100ms;
+  cursor: pointer;
+}
+
+.sidebar__link__icon {
+  width: 15px;
+  height: 15px;
+}
+
+.sidebar__link:hover {
+  color: #320508;
+  background-color: #3205800b;
+}
+
+/* SEARCH BAR */
+
+.searchbar {
+  width: 100%;
+  height: 80px;
+  border: 1px solid #f1f3f4;
+}
+
+.searchbar__row {
+  gap: 20px;
+  position: absolute;
+}
+
+/* END OF SEARCH BAR */
+
+/* END OF DASHBOARD PAGE */
+
 @media (max-width: 1280px) {
   .summary__row {
     margin-left: 20px;
