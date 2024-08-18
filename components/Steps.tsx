@@ -19,19 +19,19 @@ function Steps() {
 
   return (
     <section id="steps">
-        <div className="py-[60px] px-0 mx-auto max-w-[1280px]">
-            <div className="container steps-background rounded-[50px] bg-[#010101]] bg-cover py-24 px-10 text-white text-opacity-60 flex flex-col items-center text-center">
-                <h2 className="text-[64px] text-[#e5e6e6] leading-none -tracking-[1.92px] max-w-[430px] w-full mb-14">
+        <div className="container">
+            <div className="row steps__row">
+                <h2 className="steps__title">
                     So, how does it work?
                 </h2>
-                <div className="flex relative">
-                    <div className="border-t border-[#ffffff1a] w-[70%] absolute left-1/2 translate-x-[-50%] translate-y-[32px]"></div>
+                <div className="steps__list">
+                    <div className="step-divider"></div>
                     {steps.map((step, index) => (
-                        <div key={index} className="flex flex-col items-center pt-0 px-5 duration-[400ms] hover:translate-y-[-12px] group">
-                            <div className="group-hover:bg-white group-hover:text-[#010101] group-hover:scale-110 w-16 h-16 border-2 border-white border-opacity-[0.17] bg-[#010101] rounded-full flex justify-center items-center text-xl text-white mb-10 relative z-[2] duration-[400ms]">
+                        <div key={index} className="step">
+                            <div className="step__number">
                                 <span>{step.number}</span>
                             </div>
-                            <div className="text-lg font-md leading-6 max-w-[280px] w-full">
+                            <div className="step__para">
                                 {step.text}
                             </div>
                         </div>
