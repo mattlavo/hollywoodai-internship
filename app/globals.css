@@ -799,6 +799,26 @@ footer {
 
 /* END OF SEARCH BAR */
 
+/* START OF DASHBOARD HEADER */
+
+.header {
+  width: 100%;
+  padding: 24px 0;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.header__text__title {
+  font-size: 33px;
+}
+
+.header__text__subtitle {
+  color: rgba(64, 70, 84, .7);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* END OF DASHBOARD HEADER */
+
 /* END OF DASHBOARD PAGE */
 
 @media (max-width: 1280px) {

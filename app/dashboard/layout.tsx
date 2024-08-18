@@ -14,7 +14,7 @@ function layout() {
         <DashboardNav />
 
         <DashboardHeader />
-        {/* <SelectedMovies /> */}
+        <SelectedMovies />
       </div>
     </div>
     
