@@ -36,26 +36,41 @@ export default function LandingFeatures() {
   ];
 
   return (
-    <section id="features" className="mt-10">
-      <div className="py-[60px] px-0">
-        <div className="container mx-auto">
-          <div className="max-w-[1280px] flex flex-col mx-auto items-center">
-            <h1 className="text-[53px] font-bold -tracking-[1.59px] mb-5 text-center">
-              The future of AI.
-            </h1>
-            <div className="text-lg leading-[1.27em] text-center text-[#3c4b62] mb-10 max-w-[500px] w-full font-normal">
-              HollywoodAI is designed to help you enjoy high-quality summaries
-              instantly, without breakinga sweat.
-            </div>
-            <div className="flex flex-wrap">
-              {featuresList.map((feature, index) => (
-                <LandingFeature Icon={feature.Icon} key={index} title={feature.title} text={feature.text}  />
-              ))}
-            </div>
+    <section id="features">
+      <div className="container">
+        <div className="row features__row">
+          <h1 className="features__title">The future of AI.</h1>
+          <div className="features__para">
+            HollywoodAI is esigned to help you enjoy high-quality summaries instantly, without a sweat
+          </div>
+          <div className="features__list">
+            {featuresList.map((feature, index) => (
+              <LandingFeature Icon={feature.Icon} key={index} title={feature.title} text={feature.text}  />
+            ))}
           </div>
         </div>
       </div>
     </section>
+    // <section id="features">
+    //   <div className="py-[60px] px-0">
+    //     <div className="container row mx-auto">
+    //       <div className="max-w-[1280px] flex flex-col mx-auto items-center">
+    //         <h1 className="text-[44px] leading-[50px] sm:leading-none sm:text-[53px] font-bold -tracking-[1.59px] mb-5 text-center">
+    //           The future of AI.
+    //         </h1>
+    //         <div className="text-[16px] sm:text-lg leading-[1.27em] text-center text-[#3c4b62] mb-10 max-w-[500px] w-full font-normal">
+    //           HollywoodAI is designed to help you enjoy high-quality summaries
+    //           instantly, without breakinga sweat.
+    //         </div>
+    //         <div className="flex flex-wrap">
+    //           {featuresList.map((feature, index) => (
+    //             <LandingFeature Icon={feature.Icon} key={index} title={feature.title} text={feature.text}  />
+    //           ))}
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
   );
 }
 
@@ -71,15 +86,15 @@ interface LandingFeatureProps {
 
 function LandingFeature({ title, text, Icon}: LandingFeatureProps) {
   return (
-    <div className="group w-full sm:w-1/2 lg:w-1/3 p-4 flex gap-5">
-      <div className="flex-none w-[44px] h-[44px] text-[#1f2328] bg-[#f2f2f2] flex justify-center items-center rounded-[8px] transition duration-300 transform hover:scale-105 group-hover:bg-[#1e2227] group-hover:text-white">
-        <Icon className="w-4 h-4" />
+    <div className="feature">
+      <div className="feature__iconWrapper">
+        <Icon className="feature__icon" />
       </div>
-      <div>
-        <h4 className="text-[#2c2e48] text-[17px] font-bold mb-3 -tracking-[0.5px]">
+      <div className="feature__text">
+        <h4 className="feature__text__title">
           {title}
         </h4>
-        <p className="text-[14px] leading-[24px] text-[rgba(44,46,72,0.6)]">
+        <p className="feature__text__para">
           {text}
         </p>
       </div>
