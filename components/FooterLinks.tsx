@@ -34,16 +34,17 @@ function FooterLinks() {
     ]
 
   return (
-    <section className="w-full border-t-[1px] border-b-[1px] border-t-[#ffffff1f] border-b-[#ffffff1f]">
-      <div className="flex justify-between items-center max-w-7xl mx-auto px-8 py-5">
+    <section id="links">
+      <div className="links__container">
         <Image
           src="/assets/logo-light.png"
-          width={132}
+          width={0}
           height={0}
+          sizes="100vw"
           alt="Hollywood AI Logo"
-          className="width-[132px]"
+          className="links__logo"
         />
-        <div className="flex gap-[30px]">
+        <div className="links__list">
           {links.map((link, index) => (
             <FooterLink
               key={index}
@@ -66,11 +67,11 @@ interface FooterLinkProps {
     title: string;
 }
 
-function FooterLink({ href, Icon, title}: FooterLinkProps) {
+export function FooterLink({ href, Icon, title}: FooterLinkProps) {
     return (
-        <Link href={href} className="text-white text-sm flex items-center cursor-not-allowed">
-            <Icon className="w-[14px] mr-3" />
-            <span>
+        <Link href={href} className="links__link">
+            <Icon className="links__link__icon" />
+            <span className="links__link__text">
                 {title}
             </span>
         </Link>
