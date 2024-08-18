@@ -9,10 +9,12 @@ function layout() {
     <div className="">
 
       <DashboardSidebar />
+      
       <div className="page-content">
         <DashboardNav />
+
         <DashboardHeader />
-        <SelectedMovies />
+        {/* <SelectedMovies /> */}
       </div>
     </div>
     
