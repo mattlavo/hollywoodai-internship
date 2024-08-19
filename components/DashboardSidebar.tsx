@@ -57,22 +57,24 @@ const SidebarLinks = [
 
 function DashboardSidebar() {
   return (
-    <div className="sidebar">
-        <Image src={'/assets/logo-dark.png'} alt="Sidebar logo" width={140} height={40} className="sidebar__logo" />
-        <div className="sidebar__links">
-            <span className="sidebar__links__title">Links</span>
-            {SidebarLinks.slice(0,4).map((link, index) => (
-                <DashboardSidebarLink key={index} href={link.href} Icon={link.Icon} text={link.text} disabled={link.disabled} />
-            ))}
-            
-        </div>
-        <div className="sidebar__limks">
-            <span className="sidebar__links__title">Extras</span>
-                {SidebarLinks.slice(4,8).map((link, index) => (
+    <>
+        <div className="sidebar--overlay sidebar--overlay--hidden "></div>
+        <div className="sidebar">
+            <Image src={'/assets/logo-dark.png'} alt="Sidebar logo" width={140} height={40} className="sidebar__logo" />
+            <div className="sidebar__links">
+                <span className="sidebar__links__title">Links</span>
+                {SidebarLinks.slice(0,4).map((link, index) => (
                     <DashboardSidebarLink key={index} href={link.href} Icon={link.Icon} text={link.text} disabled={link.disabled} />
                 ))}
+            </div>
+            <div className="sidebar__links">
+                <span className="sidebar__links__title">Extras</span>
+                    {SidebarLinks.slice(4,8).map((link, index) => (
+                        <DashboardSidebarLink key={index} href={link.href} Icon={link.Icon} text={link.text} disabled={link.disabled} />
+                    ))}
+            </div>
         </div>
-    </div>
+    </>
   )
 }
 
