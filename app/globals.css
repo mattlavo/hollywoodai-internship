@@ -674,6 +674,27 @@ footer {
   width: calc(100% - 230px);
 }
 
+.embla {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  width: 100%;
+  margin-left: calc(19px * -1);
+}
+
+.embla__slide {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: calc(100% / 7);
+  min-width: 0;
+  padding-left: 20px;
+  padding-top: 10px;
+  height: min-content;
+}
+
 .page-row {
   width: 100%;
   height: 100%;

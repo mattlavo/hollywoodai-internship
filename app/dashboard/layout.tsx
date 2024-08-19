@@ -2,6 +2,7 @@ import DashboardHeader from '@/components/DashboardHeader'
 import DashboardNav from '@/components/DashboardNav'
 import DashboardSidebar from '@/components/DashboardSidebar'
 import SelectedMovies from '@/components/SelectedMovies'
+import TopMovies from '@/components/TopMovies'
 import React from 'react'
 
 function layout() {
@@ -15,6 +16,7 @@ function layout() {
 
         <DashboardHeader />
         <SelectedMovies />
+        <TopMovies />
       </div>
     </div>
     

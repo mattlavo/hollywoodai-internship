@@ -4,11 +4,21 @@ import React from 'react'
 import { FaRegClock } from "react-icons/fa6";
 import { FaRegStar } from "react-icons/fa";
 
-function MovieCard() {
+interface MovieDetails {
+  id: number,
+  image: string,
+  title: string,
+  director: string,
+  duration: string,
+  rating: number
+}
+
+function MovieCard({ id, image, title, director, duration, rating }: MovieDetails) {
+  
   return (
-    <Link className="movie" href="/movie/1">
+    <Link className="movie" href={`/movie/${id}`}>
         <figure className="movie__img__wrapper">
-            <Image className="movie__img" alt="Movie Card" src="https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_QL75_UY281_CR3,0,190,281_.jpg" width={0} height={0} sizes="100vw" />
+            <Image className="movie__img" alt="Movie Card" src={`${image}`} width={0} height={0} sizes="100vw" />
           </figure>
         
           <div className="movie__text">
