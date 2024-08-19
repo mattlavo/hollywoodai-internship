@@ -925,6 +925,33 @@ footer {
   color: rgba(64, 70, 84, 0.7);
 }
 
+.top {
+  padding: 40px 0 88px;
+}
+
+.top__row {
+  flex-direction: column;
+  align-items: start;
+}
+
+.top__title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.top__subtitle {
+  color: rgba(64, 70, 84, .7);
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.top__list {
+  display: flex;
+  max-width: 100%;
+  width: 100%;
+}
+
 /* END OF MOVIE CARD */
 
 /* END OF DASHBOARD PAGE */
