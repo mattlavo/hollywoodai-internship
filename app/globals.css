@@ -958,6 +958,14 @@ footer {
 
 /* END OF MOVIE CARD */
 
+/* Movie Details Page */
+
+.movieDetails__row {
+  
+}
+
+/* End of Movie Details Page */
+
 /* END OF DASHBOARD PAGE */
 
 @media (max-width: 1280px) {
@@ -1099,7 +1107,6 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
   }
-
 
 }
 

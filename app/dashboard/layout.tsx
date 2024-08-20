@@ -5,22 +5,21 @@ import SelectedMovies from '@/components/SelectedMovies'
 import TopMovies from '@/components/TopMovies'
 import React from 'react'
 
-function layout() {
+function DashboardLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <div className="">
-
       <DashboardSidebar />
-      
       <div className="page-content">
         <DashboardNav />
-
-        <DashboardHeader />
-        <SelectedMovies />
-        <TopMovies />
+        {children}
       </div>
     </div>
     
   )
 }
 
-export default layout
+export default DashboardLayout
