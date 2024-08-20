@@ -961,8 +961,128 @@ footer {
 /* Movie Details Page */
 
 .movieDetails__row {
-  
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: flex;
+  align-items: start;
 }
+
+.movieDetails__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.movieDetails__title {
+  font-size: 36px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.movieDetails__director {
+  margin-bottom: 8px;
+  font-weight: 400;
+  color: rgba(64, 70, 84, .7);
+}
+
+.movieDetails__tagline {
+  font-size: 18px;
+  margin-bottom: 16px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.movieDetails__details__wrapper {
+  border-top: 1px #e1e7ea solid;
+  border-bottom: 1px #e1e7ea solid;
+  padding: 16px 0;
+  margin-bottom: 24px;
+}
+
+.movieDetails__details {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 400px;
+  row-gap: 12px;
+}
+
+.movieDetails__detail {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  font-weight: 400;
+  font-size: 14px;
+  gap: 6px;
+}
+
+.movieDetails__button {
+  justify-content: center;
+  max-width: 280px;
+  width: 100%;
+  height: 48px;
+  background: #320580;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: opacity 200ms;
+  border: none;
+  margin-bottom: 24px;
+}
+
+.movieDetails__bookmark,
+.movieDetails__button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.movieDetails__bookmark {
+  color: #0365f2;
+  font-weight: 500;
+  margin-bottom: 40px;
+  font-size: 18px;
+  transition: color 200ms;
+}
+
+.movieDetails__subtitle {
+  font-size: 18px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.movieDetails__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.movieDetails__genre {
+  background-color: #f1f6f4;
+  padding: 0 16px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: background-color 200ms;
+}
+
+.movieDetails__img__wrapper {
+  width: 200px;
+  min-width: 200px;
+  aspect-ratio: 2/3;
+  margin-left: 32px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.movieDetails__img {
+  width: 100%;
+  height: 100%;
+}
+
 
 /* End of Movie Details Page */
 

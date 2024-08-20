@@ -10,12 +10,13 @@ function MoviePageLayout({
   return (
     <>
         <DashboardSidebar />
-        <div className="page-content movieDetails__row">
+        <div className="page-content">
             <DashboardNav />
             { children }
         </div>
-
     </>
+        
+
   )
 }
 
