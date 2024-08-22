@@ -1197,6 +1197,37 @@ footer {
 
 /* End of Settings Page */
 
+/* Player Page */
+
+.playerSummary {
+  padding-top: 40px;
+  position: relative;
+  width: 100%;
+  overflow-y: auto;
+  height: calc(100vh - 160px);
+}
+
+.playerSummary__row {
+  display: flex;
+  flex-direction: column;
+}
+
+.playerSummary__title {
+  width: 100%;
+  font-size: 24px;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid #e1e7ea;
+}
+
+.playerSummary__para {
+  white-space: pre-line;
+  line-height: 1.4;
+  padding-bottom: 40px;
+}
+
+/* End of Player Page */
+
 /* Audio Player */
 
 .audio {
@@ -1227,12 +1258,110 @@ footer {
   gap: 12px;
 }
 
-.audio__track__imgWrapper {
+.audio__track__img__wrapper {
   display: flex;
   max-height: 40px;
   height: 48px;
   min-height: 48px;
   width: auto;
+}
+
+.audio__track__img {
+  width: 100%;
+  height: 100%;
+}
+
+.audio__track__details {
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+}
+ 
+
+.audio__track__director {
+  color: #bac8ce;
+}
+
+.audio__controls__btn,
+.audio__controls__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audio__controls__wrapper {
+  gap: 12px;
+}
+
+.audio__controls__btn {
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.audio__controls__btn__icon {
+  width: 20px;
+  height: 20px;
+  transition: all 200ms;
+  color: white;
+}
+
+.audio__controls__btn--play {
+  width: 40px;
+  height: 40px;
+  background: white;
+}
+
+.audio__controls__btn__icon--play {
+  color: black;
+}
+
+.audio__progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+}
+
+.audio__time {
+  color: white;
+  font-size: 14px;
+  width: 32px;
+}
+
+.audio__range {
+  border-radius: 8px;
+  height: 4px;
+  max-width: 300px;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+}
+
+input[type=range] {
+  position: relative;
+  background: #ccc;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+input[type=range]:before {
+  content: "";
+  height: 2px;
+  background: #f50;
+  width: var(--range-progress);
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* End of Audio Player */

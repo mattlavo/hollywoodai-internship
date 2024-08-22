@@ -51,26 +51,6 @@ export default function LandingFeatures() {
         </div>
       </div>
     </section>
-    // <section id="features">
-    //   <div className="py-[60px] px-0">
-    //     <div className="container row mx-auto">
-    //       <div className="max-w-[1280px] flex flex-col mx-auto items-center">
-    //         <h1 className="text-[44px] leading-[50px] sm:leading-none sm:text-[53px] font-bold -tracking-[1.59px] mb-5 text-center">
-    //           The future of AI.
-    //         </h1>
-    //         <div className="text-[16px] sm:text-lg leading-[1.27em] text-center text-[#3c4b62] mb-10 max-w-[500px] w-full font-normal">
-    //           HollywoodAI is designed to help you enjoy high-quality summaries
-    //           instantly, without breakinga sweat.
-    //         </div>
-    //         <div className="flex flex-wrap">
-    //           {featuresList.map((feature, index) => (
-    //             <LandingFeature Icon={feature.Icon} key={index} title={feature.title} text={feature.text}  />
-    //           ))}
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </section>
   );
 }
 
