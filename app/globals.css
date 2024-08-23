@@ -893,7 +893,7 @@ footer {
   height: 100%;
   max-width: 1400px;
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   padding: 0 32px;
   margin: 0 auto;
