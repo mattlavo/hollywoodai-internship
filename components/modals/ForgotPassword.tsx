@@ -4,30 +4,36 @@ import { Modal } from "@mui/material";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { FcGoogle } from "react-icons/fc";
 import { IoPerson } from "react-icons/io5";
+import { AppDispatch, RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { closeForgotPassModal } from "@/redux/slices/modalSlice";
 
 function ForgotPassword() {
-  const [isOpen, setIsOpen] = useState(false);
+
+  const isOpen = useSelector((state: RootState) => state.modals.forgotPassModal);
+
+  const dispatch: AppDispatch = useDispatch();
 
   return (
     <>
       <Modal
         open={isOpen}
-        onClose={() => setIsOpen(false)}
-        className="flex justify-center items-center"
+        onClose={() => dispatch(closeForgotPassModal())}
       >
-        <div className="w-full h-full sm:w-[400px] sm:h-[640px] bg-white p-8 rounded-[10px] absolute outline-none">
-            <XMarkIcon className="w-6 h-auto absolute top-4 right-4 text-[#1f2328] cursor-pointer" onClick={() => setIsOpen(false)} />
-            <h1 className="text-[32px] text-[#1f2328] font-extrabold mt-7 mb-5 text-center">
+        <div className="modal">
+            <XMarkIcon className="modal__close" onClick={() => dispatch(closeForgotPassModal())} />
+            <h1 className="modal__title">
               Forgot Password
             </h1>
             
+            {/* <span className="modal__error">Firebase Error</span> */}
             
-            <form className="flex flex-col items-end gap-4">
-              <div className="gap-3 w-full flex flex-col">
-                <label className="text-[13px] font-medium text-[#667085]">Email Address</label>
-                <input type="email" className="py-2 px-4 h-11 text-[13px] outline-none border border-[#ebebeb] rounded-xl w-full" placeholder="your@email.com" />
+            <form className="modal__form">
+              <div className="modal__form__field">
+                <label className="modal__form__field__label">Email Address</label>
+                <input type="email" className="modal__form__field__input" placeholder="your@email.com" />
               </div>
-              <button className="w-full h-11 pt-0 px-5 text-[15px] font-medium rounded-full bg-[#320580] text-white border-none justify-center items-center">Send Instructions</button>
+              <button className="modal__form__submit">Send Instructions</button>
             </form>
            
         </div>
