@@ -1,9 +1,12 @@
+import { RootState } from '@/redux/store';
 import React from 'react'
 import { FaSearch } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useDispatch, useSelector } from 'react-redux';
 // import '../app/globals.css'
 
 function DashboardNav() {
+
   return (
     <div className="searchbar">
         <div className="page-row searchbar__row">

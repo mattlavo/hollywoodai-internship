@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { FcGoogle } from "react-icons/fc";
@@ -7,15 +7,76 @@ import { IoPerson } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { closeSignUpModal, openLoginModal } from "@/redux/slices/modalSlice";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { auth, provider } from "@/app/firebase";
+import { signInUser } from "@/redux/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 function SignUpModal() {
-  // const [isOpen, setIsOpen] = useState(true);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const isOpen = useSelector(
     (state: RootState) => state.modals.signUpModalOpen
   );
 
   const dispatch: AppDispatch = useDispatch();
+
+  const router = useRouter();
+
+  async function signInWithGoogle() {
+    const userCredentials = await signInWithPopup(auth, provider);
+  
+    dispatch(signInUser(
+      {
+        email: userCredentials.user.email,
+        uid: userCredentials.user.uid,
+        subscription: "basic",
+      }
+    ));
+
+    router.push('/dashboard');
+  }
+
+  async function handleSignUp() {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
+    
+      console.log('User Credentials:', userCredentials);
+
+      dispatch(signInUser(
+        {
+          email: userCredentials.user.email,
+          uid: userCredentials.user.uid,
+          subscription: "basic",
+        }
+      ));
+  
+      console.log(userCredentials.user.email);
+  
+
+  
+      router.push('/dashboard');
+    } catch (error) {
+      console.error('Error during sign up', error);
+    }
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser);
+      if (!currentUser) return;
+
+      dispatch(signInUser({
+        email: currentUser.email,
+        uid: currentUser.uid,
+        subscription: "basic",
+      }));
+
+    })
+    return unsubscribe;
+  }, []);
 
   return (
     <>
@@ -29,7 +90,7 @@ function SignUpModal() {
           <div className="modal__buttons">
             <button className="modal__button">
               <FcGoogle className="modal__button__icon" />
-              <span className="modal__button__text">Sign up with Google</span>
+              <span className="modal__button__text" onClick={() => signInWithGoogle()}>Sign up with Google</span>
             </button>
             <button className="modal__button">
               <IoPerson className="modal__button__icon" />
@@ -48,6 +109,7 @@ function SignUpModal() {
                 type="email"
                 className="modal__form__field__input"
                 placeholder="your@email.com"
+                onChange={(event) => setEmail(event.target.value)}
               />
             </div>
             <div className="modal__form__field">
@@ -56,9 +118,10 @@ function SignUpModal() {
                 type="password"
                 className="modal__form__field__input"
                 placeholder="Your password"
+                onChange={(event) => setPassword(event.target.value)}
               />
             </div>
-            <button className="modal__form__submit">Sign Up</button>
+            <button className="modal__form__submit" onClick={() => handleSignUp()}>Sign Up</button>
           </form>
           <div className="modal__bottom">
             <span className="modal__bottom__text">

@@ -1,9 +1,7 @@
-import DashboardHeader from '@/components/DashboardHeader'
-import DashboardNav from '@/components/DashboardNav'
-import DashboardSidebar from '@/components/DashboardSidebar'
-import SelectedMovies from '@/components/SelectedMovies'
-import TopMovies from '@/components/TopMovies'
-import React from 'react'
+import DashboardNav from "@/components/DashboardNav";
+import DashboardSidebar from "@/components/DashboardSidebar";
+import StoreProvider from "@/redux/StoreProvider";
+import React from "react";
 
 function DashboardLayout({
   children,
@@ -11,15 +9,14 @@ function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="">
-      <DashboardSidebar />
-      <div className="page-content">
-        <DashboardNav />
-        {children}
+      <div className="">
+        <DashboardSidebar />
+        <div className="page-content">
+          <DashboardNav />
+          {children}
+        </div>
       </div>
-    </div>
-    
-  )
+  );
 }
 
-export default DashboardLayout
+export default DashboardLayout;

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SettingsDetails from './SettingsDetails'
-import SettingsLogin from './SettingsLogin'
 
 function Settings() {
-  return (
+
+  return (    
     <div className="settings">
         <div className="page-row settings__row">
             <h1 className="settings__title">Settings</h1>

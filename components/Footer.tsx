@@ -1,12 +1,12 @@
+"use client"
 import Image from 'next/image'
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 import FooterLinks from './FooterLinks';
 
 
 function Footer() {
-
-    
+    const [email, setEmail] = useState('');
 
   return (
     <footer>
@@ -38,10 +38,10 @@ function Footer() {
         <FooterLinks />
         <section id="copyright">
             <div className="copyright__container">
-                <form action="" className="copyright__form">
-                    <input type="text" className="copyright__form__input" placeholder="Enter your email" />
+                {/* <form suppressHydrationWarning action="" className="copyright__form">
+                    <input type="text" className="copyright__form__input" placeholder="Enter your email"  value={email}  />
                     <button type="button" className="copyright__form__button">Subscribe</button>
-                </form>
+                </form> */}
                 <span className="copyright__text">
                     2024 Copyright © Hollywood AI
                 </span>

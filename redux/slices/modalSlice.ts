@@ -4,6 +4,7 @@ const initialState = {
     loginModalOpen: false,
     signUpModalOpen: false,
     forgotPassModal: false,
+    dashboardSidebar: false,
 }
 
 const modalSlice = createSlice({
@@ -27,10 +28,16 @@ const modalSlice = createSlice({
     },
     closeForgotPassModal: (state) => {
         state.forgotPassModal = false;
+    },
+    openDashboardSidebar: (state) => {
+        state.dashboardSidebar = true;
+    },
+    closeDashboardSidebar: (state) => {
+        state.dashboardSidebar = false;
     }
-  }
+  } 
 });
 
-export const { openLoginModal, closeLoginModal, openSignUpModal, closeSignUpModal, openForgotPassModal, closeForgotPassModal } = modalSlice.actions
+export const { openLoginModal, closeLoginModal, openSignUpModal, closeSignUpModal, openForgotPassModal, closeForgotPassModal, openDashboardSidebar, closeDashboardSidebar } = modalSlice.actions
 
 export default modalSlice.reducer

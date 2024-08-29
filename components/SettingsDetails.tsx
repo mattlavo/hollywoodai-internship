@@ -1,8 +1,15 @@
+"use client"
+import { RootState } from '@/redux/store';
 import Link from 'next/link'
 import React from 'react'
 import { BsLightningChargeFill } from "react-icons/bs";
+import { useSelector } from 'react-redux';
 
 function SettingsDetails() {
+
+  const user = useSelector((state: RootState) => state.user);
+
+
   return (
     <>
         <div className="settings__detail">
