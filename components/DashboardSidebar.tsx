@@ -9,10 +9,14 @@ import { IoIosSearch } from "react-icons/io";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { IoMdSettings } from "react-icons/io";
-import { MdLogin } from "react-icons/md";
+import { MdLogin, MdLogout } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import StoreProvider from "@/redux/StoreProvider";
+import { signOutUser } from "@/redux/slices/userSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "@/app/firebase";
+import { openLoginModal } from "@/redux/slices/modalSlice";
 
 const SidebarLinks = [
   {
@@ -59,12 +63,16 @@ const SidebarLinks = [
   },
 ];
 
-function DashboardSidebar() {
-  const user = useSelector((state: RootState) => state.user);
+// const defaultUser = null
 
-  useEffect(() => {
-    console.log("Dashboard User State:", user);
-  }, [user])
+// interface DashboardProps {
+//   user?: null|{}
+// }
+
+function DashboardSidebar() {
+
+
+
 
   return (
     <>
@@ -131,10 +139,28 @@ function DashboardSidebarLink({
 }
 
 function DashboardLogoutLink() {
+
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+
+  async function handleSignOut() {
+    await signOut(auth);
+    dispatch(signOutUser());
+  }
+
   return (
-    <Link href={""} className={`sidebar__link`}>
-      <MdLogin className="sidebar__link__icon" />
-      <span className="sidebar__link__text">Log In</span>
-    </Link>
+    <>
+      { !user.email ? (
+        <Link href={""} className={'sidebar__link'} onClick={() => dispatch(openLoginModal())}>
+          <MdLogin className="sidebar__link__icon" />
+          <span className="sidebar__link__text">Log In</span>
+        </Link>
+      ) : (
+        <Link href={""} className={'sidebar__link'} onClick={() => handleSignOut()}>
+        <MdLogout className="sidebar__link__icon" />
+        <span className="sidebar__link__text">Log Out</span>
+        </Link>
+      )}
+    </>
   );
 }

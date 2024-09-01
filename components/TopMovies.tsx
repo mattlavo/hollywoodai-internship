@@ -76,8 +76,8 @@ function TopMovies() {
                     <div className="embla" ref={emblaRef}>
                       <div className="embla__container">
                         {topMovies.map((movie, index) => (
-                          <div className="embla__slide">
-                              <MovieCard key={index} id={movie.id} image={movie.image} title={movie.title} director={movie.director} duration={movie.duration} rating={movie.rating} />
+                          <div className="embla__slide" key={index}>
+                              <MovieCard id={movie.id} image={movie.image} title={movie.title} director={movie.director} duration={movie.duration} rating={movie.rating} />
                           </div>
                         ))}
                       </div>

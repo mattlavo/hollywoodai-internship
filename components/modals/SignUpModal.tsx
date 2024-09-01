@@ -26,25 +26,9 @@ function SignUpModal() {
   const router = useRouter();
 
   async function signInWithGoogle() {
-    const userCredentials = await signInWithPopup(auth, provider);
-  
-    dispatch(signInUser(
-      {
-        email: userCredentials.user.email,
-        uid: userCredentials.user.uid,
-        subscription: "basic",
-      }
-    ));
-
-    router.push('/dashboard');
-  }
-
-  async function handleSignUp() {
     try {
-      const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
+      const userCredentials = await signInWithPopup(auth, provider);
     
-      console.log('User Credentials:', userCredentials);
-
       dispatch(signInUser(
         {
           email: userCredentials.user.email,
@@ -53,11 +37,29 @@ function SignUpModal() {
         }
       ));
   
-      console.log(userCredentials.user.email);
-  
-
-  
       router.push('/dashboard');
+  
+      dispatch(closeSignUpModal());
+    } catch(err) {
+      console.log(`Error signing up: ${err}`)
+    }
+  }
+
+  async function handleSignUp() {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      
+      router.push('/dashboard');
+    
+      dispatch(signInUser(
+        {
+          email: userCredentials.user.email,
+          uid: userCredentials.user.uid,
+          subscription: "basic",
+        }
+      ));
+
+      dispatch(closeSignUpModal())
     } catch (error) {
       console.error('Error during sign up', error);
     }
@@ -65,7 +67,6 @@ function SignUpModal() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
       if (!currentUser) return;
 
       dispatch(signInUser({
