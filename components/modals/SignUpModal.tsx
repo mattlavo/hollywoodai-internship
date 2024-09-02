@@ -7,7 +7,7 @@ import { IoPerson } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { closeSignUpModal, openLoginModal } from "@/redux/slices/modalSlice";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "@/app/firebase";
 import { signInUser } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
@@ -16,6 +16,7 @@ function SignUpModal() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const isOpen = useSelector(
     (state: RootState) => state.modals.signUpModalOpen
@@ -65,6 +66,16 @@ function SignUpModal() {
     }
   }
 
+  async function guestSignIn() {
+    try {
+      await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
+      dispatch(closeSignUpModal());
+    } catch (err) {
+      setError(`${err}`)
+      console.error(`Error signing in ${err}`);
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) return;
@@ -88,14 +99,17 @@ function SignUpModal() {
             onClick={() => dispatch(closeSignUpModal())}
           />
           <h1 className="modal__title">Sign Up</h1>
-          <div className="modal__buttons">
-            <button className="modal__button">
+          {error && (
+            <span className="modal__error">{error}</span>
+          )}
+          <div className="modal__buttons" >
+            <button className="modal__button" onClick={() => signInWithGoogle()}>
               <FcGoogle className="modal__button__icon" />
-              <span className="modal__button__text" onClick={() => signInWithGoogle()}>Sign up with Google</span>
+              <span className="modal__button__text" >Login with Google</span>
             </button>
-            <button className="modal__button">
+            <button className="modal__button" onClick={() => guestSignIn()}>
               <IoPerson className="modal__button__icon" />
-              <span className="modal__button__text">Sign up as Guest</span>
+              <span className="modal__button__text">Login as Guest</span>
             </button>
           </div>
           <div className="break">
