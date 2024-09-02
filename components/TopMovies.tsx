@@ -63,7 +63,7 @@ const topMovies = [
   ]
 
 function TopMovies() {
-    const [emblaRef] = useEmblaCarousel();
+    const [emblaRef] = useEmblaCarousel({ loop: true });
 
     return (
         <div className="top">
@@ -77,7 +77,7 @@ function TopMovies() {
                       <div className="embla__container">
                         {topMovies.map((movie, index) => (
                           <div className="embla__slide" key={index}>
-                              <MovieCard id={movie.id} image={movie.image} title={movie.title} director={movie.director} duration={movie.duration} rating={movie.rating} />
+                              {/* <MovieCard id={movie.id} image={movie.image} title={movie.title} director={movie.director} duration={movie.duration} rating={movie.rating} /> */}
                           </div>
                         ))}
                       </div>

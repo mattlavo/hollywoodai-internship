@@ -5,10 +5,10 @@ import { FaRegClock } from "react-icons/fa6";
 import { FaRegStar } from "react-icons/fa";
 
 interface MovieDetails {
-  id: number,
-  image: string,
-  title: string,
+  id: string,
   director: string,
+  title: string,
+  image: string,
   duration: string,
   rating: number
 }
@@ -22,8 +22,8 @@ function MovieCard({ id, image, title, director, duration, rating }: MovieDetail
           </figure>
         
           <div className="movie__text">
-              <span className="movie__title">Avatar</span>
-              <span className="movie__director">James Cameron</span>
+              <span className="movie__title">{title}</span>
+              <span className="movie__director">{director}</span>
               <span className="movie__details">
                 <div className="movie__detail">
                   <FaRegClock className="movie__detail__icon" />
@@ -31,7 +31,7 @@ function MovieCard({ id, image, title, director, duration, rating }: MovieDetail
                 </div>
                 <div className="movie__detail">
                   <FaRegStar className="movie__detail__icon" />
-                  <span className="movie__detail__text">7.9</span>
+                  <span className="movie__detail__text">{rating}</span>
                 </div>
               </span>
           </div>
