@@ -28,10 +28,6 @@ function SelectedMovies() {
     fetchMovies();
   }, []);
 
-  selectedMovies.map((movie, index) => {
-    console.log(movie);
-  })
-
   return (
     <div className="selected">
       <div className="page-row selected__row">
@@ -40,7 +36,6 @@ function SelectedMovies() {
         <div className="selected__list">
           <div className="embla" ref={emblaRef}>
             <div className="embla__container">
-
               {loading
                 ? new Array(10).fill(0).map((_, index) => (
                     <div className="embla__slide" key={index}>
@@ -53,23 +48,14 @@ function SelectedMovies() {
                           />
                         </figure>
                       </div>
-                      <div className="movie__text" style={{gap: '4px'}}>
-                        <Skeleton 
+                      <div className="movie__text" style={{ gap: "4px" }}>
+                        <Skeleton
                           width="100%"
                           height="8px"
                           borderRadius="4px"
                         />
-                        <Skeleton 
-                          width="50%"
-                          height="8px"
-                          borderRadius="4px"
-                        />
-                        <Skeleton 
-                          width="70%"
-                          height="8px"
-                          borderRadius="4px"
-                        />
-
+                        <Skeleton width="50%" height="8px" borderRadius="4px" />
+                        <Skeleton width="70%" height="8px" borderRadius="4px" />
                       </div>
                     </div>
                   ))
