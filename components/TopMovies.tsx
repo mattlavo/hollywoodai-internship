@@ -96,13 +96,7 @@ function TopMovies() {
                 <div className="top__list">
                     <div className="embla" ref={emblaRef}>
                       <div className="embla__container">
-                        
-                        {/* {topMovies.map((movie, index) => (
-                          <div className="embla__slide" key={index}>
-                              <MovieCard id={movie.id} image={movie.image} title={movie.title} director={movie.director} duration={movie.duration} rating={movie.rating} />
-                          </div>
-                        ))} */}
-
+                      
                         {loading ? new Array(10).fill(0).map((_, index) => (
                           <div className="embla__slide" key={index}>
                             <div className="movie">
@@ -141,6 +135,7 @@ function TopMovies() {
                               director={movie.director}
                               duration={movie.duration}
                               rating={movie.rating}
+                              subscriptionRequired={movie.subscriptionRequired}
                             />
                           </div>
                         ))}

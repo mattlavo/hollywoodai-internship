@@ -69,6 +69,9 @@ function SignUpModal() {
   async function guestSignIn() {
     try {
       await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
+      
+      router.push('/dashboard');
+      
       dispatch(closeSignUpModal());
     } catch (err) {
       setError(`${err}`)

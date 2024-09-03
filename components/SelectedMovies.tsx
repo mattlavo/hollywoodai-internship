@@ -28,6 +28,10 @@ function SelectedMovies() {
     fetchMovies();
   }, []);
 
+  selectedMovies.map((movie, index) => {
+    console.log(movie);
+  })
+
   return (
     <div className="selected">
       <div className="page-row selected__row">
@@ -78,6 +82,7 @@ function SelectedMovies() {
                         director={movie.director}
                         duration={movie.duration}
                         rating={movie.rating}
+                        subscriptionRequired={movie.subscriptionRequired}
                       />
                     </div>
                   ))}

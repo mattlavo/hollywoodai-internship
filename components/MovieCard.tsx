@@ -5,19 +5,28 @@ import { FaRegClock } from "react-icons/fa6";
 import { FaRegStar } from "react-icons/fa";
 
 interface MovieDetails {
-  id: string,
-  director: string,
-  title: string,
-  image: string,
-  duration: string,
-  rating: number
+  id: string;
+  director: string;
+  title: string;
+  image: string;
+  duration: string;
+  rating: string;
+  // releaseYear: string;
+  // type: string;
+  subscriptionRequired: boolean;
+  // summary: string;
+  // tags: string[];
+  // movieDescription: string;
 }
 
-function MovieCard({ id, image, title, director, duration, rating }: MovieDetails) {
+function MovieCard({ id, image, title, director, duration, rating, subscriptionRequired }: MovieDetails) {
   
   return (
     <Link className="movie" href={`/movie/${id}`}>
         <figure className="movie__img__wrapper">
+          {subscriptionRequired && (
+            <div className="movie__pill">Premium</div>
+          )}
             <Image className="movie__img" alt="Movie Card" src={`${image}`} width={0} height={0} sizes="100vw" />
           </figure>
         
