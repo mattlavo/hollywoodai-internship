@@ -24,10 +24,6 @@ function SelectedMovies() {
     }
   };
 
-  selectedMovies.map((movie, index) => {
-    console.log(movie.id);
-  });
-
   useEffect(() => {
     fetchMovies();
   }, []);
@@ -40,22 +36,7 @@ function SelectedMovies() {
         <div className="selected__list">
           <div className="embla" ref={emblaRef}>
             <div className="embla__container">
-              {/* {loading ? new Array(10).fill(0).map((_, index) => (
-                      <div className="embla__slide" key={index}>
-                        <Link className="movie" href="">
-                          <figure className="movie__img__wrapper">
-                            <Skeleton width="100%" height="100%" borderRadius='4px'  />
-                          </figure>
-                        </Link>
-                      </div>
-                    ) : selectedMovies.map((movie, index) => (
-                      // <MovieCard id={movie.id} image={movie.imageLink} title={movie.title} director={movie.director} duration={movie.duration} rating={movie.rating} />
-                      <div>
-                        <h1>asdadda</h1>
-                      </div>
-                    ))
-                    
-                    } */}
+
               {loading
                 ? new Array(10).fill(0).map((_, index) => (
                     <div className="embla__slide" key={index}>
