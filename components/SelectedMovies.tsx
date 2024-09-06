@@ -81,9 +81,3 @@ function SelectedMovies() {
 }
 
 export default SelectedMovies;
-
-// selectedMovies.map((movie, index) => (
-//   <div className="embla__slide" key={index}>
-//       <MovieCard id={movie.id} image={movie.imageLink} title={movie.title} director={movie.director} duration={movie.duration} rating={movie.rating} />
-//   </div>
-// ))

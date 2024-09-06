@@ -1,5 +1,6 @@
 import FAQ from '@/components/FAQ'
 import Plan from '@/components/Plan'
+import { loadCheckout } from '@/stripe/stripePayment'
 import React from 'react'
 
 function PlansPage() {
@@ -37,8 +38,8 @@ function PlansPage() {
                 <div className="page-row plans__row">
                     <h2 className="plans__title">Subscription Plans:</h2>
                     <div className="plans__list">
-                        <Plan priceAmount={"19"} cycle={"Monthly"} plan="Premium" features={premiumFeatures} />
-                        <Plan priceAmount={"190"} cycle={"Yearly"} plan="VIP+" features={premiumFeatures} />
+                        <Plan productId={"price_1PvnxaKN65bCtJOsoHzhvBFe"} priceAmount={"19"} cycle={"Monthly"} plan="Premium" features={premiumFeatures} />
+                        <Plan productId={"price_1PvnxxKN65bCtJOsA7ozQqdz"} priceAmount={"190"} cycle={"Yearly"} plan="VIP+" features={vipPlusFeatures} />
                     </div>
                 </div>
             </div>

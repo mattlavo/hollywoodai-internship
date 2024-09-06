@@ -1,15 +1,18 @@
+"use client"
 import React from 'react'
 import PlanFeature from './PlanFeature';
+import { loadCheckout } from "@/stripe/stripePayment";
 
 interface PlanProps {
     priceAmount: string;
+    productId: string;
     features: { text: string }[];
     plan: string;
     cycle: string;
 }
 
 
- function Plan({priceAmount, features, plan, cycle}: PlanProps) {
+ function Plan({priceAmount, productId, features, plan, cycle}: PlanProps) {
   
   return (
     <div className="plan">
@@ -24,7 +27,9 @@ interface PlanProps {
                 <PlanFeature text={feature.text} key={index} />
             ))}
        </div>
-       <button className="plan__button">Choose Plan</button>
+       <button className="plan__button" onClick={() => {
+        loadCheckout(productId)
+      }}>Choose Plan</button>
     </div>
   )
 }

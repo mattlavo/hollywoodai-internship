@@ -63,12 +63,6 @@ const SidebarLinks = [
   },
 ];
 
-// const defaultUser = null
-
-// interface DashboardProps {
-//   user?: null|{}
-// }
-
 function DashboardSidebar() {
 
   return (

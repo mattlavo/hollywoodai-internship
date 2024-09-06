@@ -11,6 +11,10 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import Skeleton from "@/components/ui/Skeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { openSignUpModal } from "@/redux/slices/modalSlice";
+import { useRouter } from "next/navigation";
 
 interface Movie {
   id: string;
@@ -30,6 +34,9 @@ interface Movie {
 
 function MoviePage() {
   const { id } = useParams();
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [movie, setMovie] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -46,9 +53,29 @@ function MoviePage() {
     }
   };
 
+  const summarizeMovie = () => {
+    console.log('summarizeMovie()')
+    try {
+      if (user.email) {
+        if (movie.subscriptionRequired && user.subscription !== "premium") {
+          router.push('/plans')
+        } else if (!movie.subscriptionRequired || user.subscription == "premium") {
+          router.push(`/player/${movie.id}`);
+        }
+      } else {
+        dispatch(openSignUpModal());
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     fetchMovieData();
   }, []);
+
+
 
   return (
     <>
@@ -134,7 +161,7 @@ function MoviePage() {
                   </div>
                 </div>
               </div>
-              <button className="movieDetails__button">
+              <button className="movieDetails__button" onClick={() => summarizeMovie()}>
                 <span className="movieDetails__button__text">Summarize</span>
                 <HiLightningBolt />
               </button>
