@@ -28,7 +28,7 @@ function LoginModal() {
         {
           email: userCredentials.user.email,
           uid: userCredentials.user.uid,
-          subscription: "basic",
+          subscription: false,
         }
       ));
       dispatch(closeLoginModal())

@@ -1,4 +1,5 @@
-import { auth, db } from "@/firebase.js";
+import { auth, db } from "@/firebase";
+
 import { getDocs, collection, query, where, orderBy } from "firebase/firestore";
 
 export const getSubscriptionStatus = async () => {

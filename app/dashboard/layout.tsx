@@ -8,6 +8,7 @@ import { auth } from "../firebase";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { signInUser } from "@/redux/slices/userSlice";
+import { getSubscriptionStatus } from "@/stripe/getPremiumStatus";
 
 function DashboardLayout({
   children,
@@ -18,7 +19,6 @@ function DashboardLayout({
   // const [user, setUser] = useState(null);
   const dispatch: AppDispatch = useDispatch();
 
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) return;
@@ -26,12 +26,25 @@ function DashboardLayout({
       dispatch(signInUser({
         email: currentUser.email,
         uid: currentUser.uid,
-        subscription: 'basic'
-      }))
+        subscription: false
+      }));
+
+      const checkPremium = async () => {
+        const premiumStatus = await getSubscriptionStatus();
+        if (premiumStatus) {
+          dispatch(signInUser({
+            email: currentUser.email,
+            uid: currentUser.uid,
+            subscription: true
+          }))
+        }
+      }
+
+      checkPremium();
     })
 
     return unsubscribe
-  }, []);
+  }, [auth.currentUser]);
 
   return (
       <div className="">

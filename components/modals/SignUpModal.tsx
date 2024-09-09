@@ -56,7 +56,7 @@ function SignUpModal() {
         {
           email: userCredentials.user.email,
           uid: userCredentials.user.uid,
-          subscription: "basic",
+          subscription: false,
         }
       ));
 
@@ -86,7 +86,7 @@ function SignUpModal() {
       dispatch(signInUser({
         email: currentUser.email,
         uid: currentUser.uid,
-        subscription: "basic",
+        subscription: false,
       }));
 
     })

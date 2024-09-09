@@ -8,6 +8,7 @@ import SettingsLogin from './SettingsLogin';
 function Settings() {
 
   const user = useSelector((state: RootState) => state.user);
+  console.log(user.subscription)
 
   return (    
     <div className="settings">
