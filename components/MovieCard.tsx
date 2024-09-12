@@ -3,6 +3,8 @@ import Link from 'next/link'
 import React from 'react'
 import { FaRegClock } from "react-icons/fa6";
 import { FaRegStar } from "react-icons/fa";
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 interface MovieDetails {
   id: string;
@@ -21,10 +23,12 @@ interface MovieDetails {
 
 function MovieCard({ id, image, title, director, duration, rating, subscriptionRequired }: MovieDetails) {
   
+  const user = useSelector((state: RootState) => state.user);
+
   return (
     <Link className="movie" href={`/movie/${id}`}>
         <figure className="movie__img__wrapper">
-          {subscriptionRequired && (
+          {subscriptionRequired && user.subscription === false && (
             <div className="movie__pill">Premium</div>
           )}
             <Image className="movie__img" alt="Movie Card" src={`${image}`} width={0} height={0} sizes="100vw" />

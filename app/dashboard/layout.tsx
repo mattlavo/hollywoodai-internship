@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import DashboardNav from "@/components/DashboardNav";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import StoreProvider from "@/redux/StoreProvider";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
-import { AppDispatch } from "@/redux/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "@/redux/slices/userSlice";
 import { getSubscriptionStatus } from "@/stripe/getPremiumStatus";
 
@@ -15,45 +15,55 @@ function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   // const [user, setUser] = useState(null);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) return;
 
-      dispatch(signInUser({
-        email: currentUser.email,
-        uid: currentUser.uid,
-        subscription: false
-      }));
-
-      const checkPremium = async () => {
-        const premiumStatus = await getSubscriptionStatus();
-        if (premiumStatus) {
-          dispatch(signInUser({
-            email: currentUser.email,
-            uid: currentUser.uid,
-            subscription: true
-          }))
-        }
+      if (!currentUser) {
+        dispatch(signInUser(null));
+        return;
       }
 
-      checkPremium();
-    })
+      dispatch(
+        signInUser({
+          email: currentUser.email,
+          uid: currentUser.uid,
+          subscription: false,
+        })
+      );
 
-    return unsubscribe
+      const fetchPremium = async () => {
+        const premiumStatus = await getSubscriptionStatus();
+        dispatch(
+          signInUser({
+            email: currentUser.email,
+            uid: currentUser.uid,
+            subscription: premiumStatus,
+          })
+        );
+      }
+
+      try {
+        fetchPremium();
+      } catch (error) {
+        console.error("Error checking premium status", error);
+      }
+    });
+
+    return () => unsubscribe();
   }, [auth.currentUser]);
 
+
   return (
-      <div className="">
-        <DashboardSidebar />
-        <div className="page-content">
-          <DashboardNav />
-          {children}
-        </div>
+    <div className="">
+      <DashboardSidebar />
+      <div className="page-content">
+        <DashboardNav />
+        {children}
       </div>
+    </div>
   );
 }
 
