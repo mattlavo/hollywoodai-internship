@@ -34,7 +34,7 @@ function SignUpModal() {
         {
           email: userCredentials.user.email,
           uid: userCredentials.user.uid,
-          subscription: "basic",
+          subscription: false,
         }
       ));
   

@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { openSignUpModal } from "@/redux/slices/modalSlice";
 import { useRouter } from "next/navigation";
+import { AudioPlayerProvider } from "@/context/audio-player-context";
 
 interface Movie {
   id: string;
@@ -54,7 +55,6 @@ function MoviePage() {
   };
 
   const summarizeMovie = () => {
-    console.log('summarizeMovie()')
     try {
       if (user.email) {
         if (movie.subscriptionRequired && user.subscription !== "premium") {
@@ -135,68 +135,70 @@ function MoviePage() {
           </div>
         </div>
       ) : (
-        <div className="movieDetails">
-          <div className="page-row movieDetails__row">
-            <div className="movieDetails__content">
-              <h1 className="movieDetails__title">{movie.title} {movie.subscriptionRequired && "(Premium)"}</h1>
-              <span className="movieDetails__director">{movie.director}</span>
-              <span className="movieDetails__tagline"></span>
-              <div className="movieDetails__details__wrapper">
-                <div className="movieDetails__details">
-                  <div className="movieDetails__detail">
-                    <FaRegStar className="movieDetails__detail__icon" />
-                    <span className="movieDetails__detail__text">{movie.rating}</span>
-                  </div>
-                  <div className="movieDetails__detail">
-                    <FaRegClock className="movieDetails__detail__icon" />
-                    <span className="movieDetails__detail__text">10:00</span>
-                  </div>
-                  <div className="movieDetails__detail">
-                    <FaMicrophone className="movieDetails__detail__icon" />
-                    <span className="movieDetails__detail__text">{movie.type}</span>
-                  </div>
-                  <div className="movieDetails__detail">
-                    <FaRegCalendar className="movieDetails__detail__icon" />
-                    <span className="movieDetails__detail__text">{movie.releaseYear}</span>
+        <AudioPlayerProvider>
+          <div className="movieDetails">
+            <div className="page-row movieDetails__row">
+              <div className="movieDetails__content">
+                <h1 className="movieDetails__title">{movie.title} {movie.subscriptionRequired && "(Premium)"}</h1>
+                <span className="movieDetails__director">{movie.director}</span>
+                <span className="movieDetails__tagline"></span>
+                <div className="movieDetails__details__wrapper">
+                  <div className="movieDetails__details">
+                    <div className="movieDetails__detail">
+                      <FaRegStar className="movieDetails__detail__icon" />
+                      <span className="movieDetails__detail__text">{movie.rating} / 10</span>
+                    </div>
+                    <div className="movieDetails__detail">
+                      <FaRegClock className="movieDetails__detail__icon" />
+                      <span className="movieDetails__detail__text">10:00</span>
+                    </div>
+                    <div className="movieDetails__detail">
+                      <FaMicrophone className="movieDetails__detail__icon" />
+                      <span className="movieDetails__detail__text">{movie.type}</span>
+                    </div>
+                    <div className="movieDetails__detail">
+                      <FaRegCalendar className="movieDetails__detail__icon" />
+                      <span className="movieDetails__detail__text">{movie.releaseYear}</span>
+                    </div>
                   </div>
                 </div>
+                <button className="movieDetails__button" onClick={() => summarizeMovie()}>
+                  <span className="movieDetails__button__text">Summarize</span>
+                  <HiLightningBolt />
+                </button>
+                <div className="movieDetails__bookmark">
+                  <FaRegBookmark className="movieDetails__bookmark__icon" />
+                  <span className="movieDetails__bookmark__text">
+                    Add to Favorites
+                  </span>
+                </div>
+                <h2 className="movieDetails__subtitle">What's it about?</h2>
+                <div className="movieDetails__genres">
+                  {!movie.tags ? [] : movie.tags.map((movie: string, index: number) => (
+                    <div className="movieDetails__genre" key={index}>
+                      {movie}
+                    </div>
+                  ))}
+                </div>
+                <p className="movieDetails__para">
+                  {movie.movieDescription}
+                </p>
               </div>
-              <button className="movieDetails__button" onClick={() => summarizeMovie()}>
-                <span className="movieDetails__button__text">Summarize</span>
-                <HiLightningBolt />
-              </button>
-              <div className="movieDetails__bookmark">
-                <FaRegBookmark className="movieDetails__bookmark__icon" />
-                <span className="movieDetails__bookmark__text">
-                  Add to Favorites
-                </span>
+              <div className="movieDetails__img__wrapper">
+                <Image
+                  width={0}
+                  height={0}
+                  sizes={"100vw"}
+                  src={
+                    movie.imageLink
+                  }
+                  alt=""
+                  className="movieDetails__img"
+                />
               </div>
-              <h2 className="movieDetails__subtitle">What's it about?</h2>
-              <div className="movieDetails__genres">
-                {!movie.tags ? [] : movie.tags.map((movie: string, index: number) => (
-                  <div className="movieDetails__genre" key={index}>
-                    {movie}
-                  </div>
-                ))}
-              </div>
-              <p className="movieDetails__para">
-                {movie.summary}
-              </p>
-            </div>
-            <div className="movieDetails__img__wrapper">
-              <Image
-                width={0}
-                height={0}
-                sizes={"100vw"}
-                src={
-                  movie.imageLink
-                }
-                alt=""
-                className="movieDetails__img"
-              />
             </div>
           </div>
-        </div>
+        </AudioPlayerProvider>
       )}
     </>
   );
