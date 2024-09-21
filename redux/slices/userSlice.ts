@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface UserState {
   email: string | null;
   uid: string  | null;
-  subscription: boolean;
+  subscription: string | null;
 }
 
 const initialState: UserState = {
     email: null,
     uid: null,
-    subscription: false,
+    subscription: null,
 }
 
 const userSlice = createSlice({
@@ -24,13 +24,13 @@ const userSlice = createSlice({
       } else {
         state.email = null
         state.uid = null
-        state.subscription = false
+        state.subscription = null
       }
     },
     signOutUser: (state) => {
         state.email = null;
         state.uid = null;
-        state.subscription = false;
+        state.subscription = null;
       }
   }
 });

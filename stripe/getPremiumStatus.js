@@ -6,7 +6,7 @@ export const getSubscriptionStatus = async () => {
   const user = auth.currentUser;
 
   if (!user) {
-    return false;
+    return null;
   }
 
   try {
@@ -29,14 +29,40 @@ export const getSubscriptionStatus = async () => {
 
     if (userSubscriptions.docs.length === 0) {
       console.log("No active or trialing subscriptions found");
-      return false;
+      return null;
     } else {
-      console.log("Active or trialing subscription found");
-      return true;
+      const latestSubscription = userSubscriptions.docs[0].data();
+
+      if (latestSubscription.items && latestSubscription.items.length > 0) {
+        const productInfo = latestSubscription.items[0].price.product.name;
+        const planName = productInfo || null;
+
+        if(planName) {
+          console.log(`Subscription Plan Name: ${planName}`);
+          return planName;
+        }
+      }
+
+      console.log('Subscription found but no plan name available');
+      return null;
+
+      // const subscriptionName = latestSubscription.planName || null;
+
+      // if(subscriptionName) {
+      //   console.log(`Subscription found: ${subscriptionName}`);
+      //   return subscriptionName;
+      // } else {
+      //   console.log('Subscription found but no plan name available');
+      //   return null;
+      // }
+
+      // console.log("Active or trialing subscription found");
+      // return true;
     }
   } catch (error) {
     if (error) {
       console.log(error);
+      return null;
     }
   }
 };

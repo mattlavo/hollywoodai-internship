@@ -57,9 +57,9 @@ function MoviePage() {
   const summarizeMovie = () => {
     try {
       if (user.email) {
-        if (movie.subscriptionRequired && user.subscription !== "premium") {
+        if (movie.subscriptionRequired && user.subscription?.toLowerCase() !== "premium") {
           router.push('/plans')
-        } else if (!movie.subscriptionRequired || user.subscription == "premium") {
+        } else if (!movie.subscriptionRequired || user.subscription?.toLowerCase() == "premium") {
           router.push(`/player/${movie.id}`);
         }
       } else {
@@ -74,8 +74,6 @@ function MoviePage() {
   useEffect(() => {
     fetchMovieData();
   }, []);
-
-
 
   return (
     <>

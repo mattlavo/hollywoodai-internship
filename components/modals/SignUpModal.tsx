@@ -1,22 +1,27 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Modal } from "@mui/material";
+import { CircularProgress, Modal } from "@mui/material";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { FcGoogle } from "react-icons/fc";
 import { IoPerson } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { closeSignUpModal, openLoginModal } from "@/redux/slices/modalSlice";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth, provider } from "@/app/firebase";
 import { signInUser } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
 
 function SignUpModal() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const isOpen = useSelector(
     (state: RootState) => state.modals.signUpModalOpen
@@ -29,53 +34,63 @@ function SignUpModal() {
   async function signInWithGoogle() {
     try {
       const userCredentials = await signInWithPopup(auth, provider);
-    
-      dispatch(signInUser(
-        {
+
+      dispatch(
+        signInUser({
           email: userCredentials.user.email,
           uid: userCredentials.user.uid,
-          subscription: false,
-        }
-      ));
-  
-      router.push('/dashboard');
-  
+          subscription: null,
+        })
+      );
+
+      router.push("/dashboard");
+
       dispatch(closeSignUpModal());
-    } catch(err) {
-      console.log(`Error signing up: ${err}`)
+    } catch (err) {
+      console.log(`Error signing up: ${err}`);
+      setError(`${err}`);
     }
   }
 
   async function handleSignUp() {
+    setLoading(true);
     try {
-      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
-      
-      router.push('/dashboard');
-    
-      dispatch(signInUser(
-        {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      router.push("/dashboard");
+
+      dispatch(
+        signInUser({
           email: userCredentials.user.email,
           uid: userCredentials.user.uid,
-          subscription: false,
-        }
-      ));
+          subscription: null,
+        })
+      );
 
-      dispatch(closeSignUpModal())
+      dispatch(closeSignUpModal());
     } catch (error) {
-      console.error('Error during sign up', error);
+      console.error("Error during sign up", error);
+    } finally {
+      setLoading(false);
     }
   }
 
   async function guestSignIn() {
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
-      
-      router.push('/dashboard');
-      
+
       dispatch(closeSignUpModal());
     } catch (err) {
-      setError(`${err}`)
+      setError(`${err}`);
       console.error(`Error signing in ${err}`);
+    } finally {
+      setLoading(false);
+      router.push("/dashboard");
     }
   }
 
@@ -83,13 +98,14 @@ function SignUpModal() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) return;
 
-      dispatch(signInUser({
-        email: currentUser.email,
-        uid: currentUser.uid,
-        subscription: false,
-      }));
-
-    })
+      dispatch(
+        signInUser({
+          email: currentUser.email,
+          uid: currentUser.uid,
+          subscription: null,
+        })
+      );
+    });
     return unsubscribe;
   }, []);
 
@@ -102,13 +118,14 @@ function SignUpModal() {
             onClick={() => dispatch(closeSignUpModal())}
           />
           <h1 className="modal__title">Sign Up</h1>
-          {error && (
-            <span className="modal__error">{error}</span>
-          )}
-          <div className="modal__buttons" >
-            <button className="modal__button" onClick={() => signInWithGoogle()}>
+          {error && <span className="modal__error">{error}</span>}
+          <div className="modal__buttons">
+            <button
+              className="modal__button"
+              onClick={() => signInWithGoogle()}
+            >
               <FcGoogle className="modal__button__icon" />
-              <span className="modal__button__text" >Login with Google</span>
+              <span className="modal__button__text">Login with Google</span>
             </button>
             <button className="modal__button" onClick={() => guestSignIn()}>
               <IoPerson className="modal__button__icon" />
@@ -139,7 +156,23 @@ function SignUpModal() {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
-            <button className="modal__form__submit" onClick={() => handleSignUp()}>Sign Up</button>
+            <button
+              className="modal__form__submit"
+              onClick={() => handleSignUp()}
+            >
+              {loading ? (
+                <div className="spinner">
+                  <CircularProgress
+                    className="spinner__icon"
+                    variant="determinate"
+                    value={75}
+                    sx={{ color: "white", fontSize: "12px" }}
+                  />
+                </div>
+              ) : (
+                "Sign Up"
+              )}
+            </button>
           </form>
           <div className="modal__bottom">
             <span className="modal__bottom__text">

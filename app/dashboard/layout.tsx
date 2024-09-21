@@ -15,7 +15,7 @@ function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const [user, setUser] = useState(null);
+
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function DashboardLayout({
         signInUser({
           email: currentUser.email,
           uid: currentUser.uid,
-          subscription: false,
+          subscription: null,
         })
       );
 
@@ -54,6 +54,7 @@ function DashboardLayout({
 
     return () => unsubscribe();
   }, [auth.currentUser]);
+
 
 
   return (

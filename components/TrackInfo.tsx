@@ -9,7 +9,7 @@ export const TrackInfo = () => {
             {currentTrack.thumbnail ? (
                 <Image
                     src={currentTrack.thumbnail}
-                    alt="dasd"
+                    alt="Movie Thumbnail"
                     width={50}
                     height={50}
                 />

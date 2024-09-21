@@ -9,6 +9,9 @@ import Steps from "@/components/Steps";
 import Summary from "@/components/Summary";
 
 export default function Home() {
+
+  
+
   return (
     <>
       <Nav />

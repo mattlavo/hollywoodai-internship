@@ -1516,8 +1516,15 @@ footer {
   padding-bottom: 40px
 }
 
-.playerSummar__spinner__icon {
-  font-size: 28px
+.playerSummar__spinner__icon
+.MuiCircularProgress-circle {
+  font-size: 28px;
+  /* color: black */
+}
+
+.spinner__icon {
+  width: 14px !important;
+  height: 14px !important;
 }
 
 .audio {

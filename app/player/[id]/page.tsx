@@ -29,6 +29,7 @@ function PlayerPage() {
     fetchMovie();
   }, []);
 
+
   return (
     <>
       <AudioPlayerProvider>
@@ -40,6 +41,7 @@ function PlayerPage() {
                   className="playerSummar__spinner__icon"
                   variant="determinate"
                   value={75}
+                  sx={{ color: "black", fontSize: "28px" }}
                 />
               </div>
             ) : (

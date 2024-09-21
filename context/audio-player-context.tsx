@@ -1,4 +1,3 @@
-import { tracks } from "@/data/tracks";
 import { StaticImageData } from "next/image";
 import {
   createContext,
@@ -8,6 +7,7 @@ import {
   Dispatch,
   SetStateAction,
   useRef,
+  RefObject,
 } from "react";
 
 export interface Track {
@@ -20,6 +20,12 @@ export interface Track {
 interface AudioPlayerContextType {
   currentTrack: Track;
   setCurrentTrack: Dispatch<SetStateAction<Track>>;
+  audioRef: RefObject<HTMLAudioElement>;
+  progressBarRef: RefObject<HTMLInputElement>;
+  timeProgress: number;
+  setTimeProgress: Dispatch<SetStateAction<number>>;
+  duration: number;
+  setDuration: Dispatch<SetStateAction<number>>;
 }
 
 const AudioPlayerContext = createContext<AudioPlayerContextType | undefined>(
