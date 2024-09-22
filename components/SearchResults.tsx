@@ -23,7 +23,6 @@ function SearchResults({ isOpen, searchQuery, movieResults, loading } : SearchRe
         </div>
         {loading && searchQuery && (
           <> 
-            {console.log("Loading...")}
             <SearchBarResultMovie loading={true} />
             <SearchBarResultMovie loading={true} />
             <SearchBarResultMovie loading={true} />
@@ -33,16 +32,14 @@ function SearchResults({ isOpen, searchQuery, movieResults, loading } : SearchRe
 
         {!loading && movieResults.length > 0 && (
           <>
-            {console.log("Displaying movie results", movieResults)}
             {movieResults.map((movie, index) => (
-              <SearchBarResultMovie key={index} movie={movie} loading={false} />
+              <SearchBarResultMovie key={index} movie={movie} id={movie.id} loading={false} />
             ))}
           </>
         )}
 
         {!loading && searchQuery && movieResults.length === 0 && (
           <>
-            {console.log("No results found")}
             <div className="searchbar__movies__noResults">No results found</div>
           </>
         )}

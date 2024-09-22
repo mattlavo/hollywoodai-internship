@@ -58,10 +58,10 @@ function Settings() {
     <div className="settings">
         <div className="page-row settings__row">
             <h1 className="settings__title">Settings</h1>
-            { !user.email ? (
-              <SettingsLogin />
-            ) : (
+            { user.email ? (
               <SettingsDetails />
+            ) : (
+              <SettingsLogin />
             )}
         </div>
     </div>

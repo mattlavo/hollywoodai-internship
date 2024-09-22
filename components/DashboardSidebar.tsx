@@ -26,12 +26,6 @@ const SidebarLinks = [
     disabled: false,
   },
   {
-    href: "/favorites",
-    Icon: FaRegBookmark,
-    text: "Favorites",
-    disabled: false,
-  },
-  {
     href: "#",
     Icon: IoIosSearch,
     text: "Search",
@@ -55,12 +49,7 @@ const SidebarLinks = [
     text: "Settings",
     disabled: false,
   },
-  {
-    href: "/logout",
-    Icon: MdLogin,
-    text: "Log In",
-    disabled: false,
-  },
+  
 ];
 
 function DashboardSidebar() {

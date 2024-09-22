@@ -1,6 +1,7 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegClock } from "react-icons/fa6";
 import Skeleton from "./ui/Skeleton";
 
@@ -14,13 +15,24 @@ interface Movie {
 interface SearchResultMovieInterface {
   loading: boolean;
   movie?: Movie;
+  id?: string;
 }
 
-function SearchBarResultMovie({ loading, movie }: SearchResultMovieInterface) {
+function SearchBarResultMovie({ loading, movie, id }: SearchResultMovieInterface) {
 
+
+  const [movieId, setMovieId] = useState<string>();
+
+  useEffect(() => {
+      if (id === undefined) {
+        setMovieId(id)
+      } else {
+        setMovieId(id);
+      }
+  }, [movie]);
 
   return (
-    <Link href="/movie/:id" className="searchbar__movie">
+    <Link href={`/movie/${movieId}`} className="searchbar__movie">
       {loading ? (
         <Skeleton width="58px" height="88px" borderRadius="4px" />
       ) : (
