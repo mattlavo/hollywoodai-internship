@@ -61,7 +61,6 @@ function SignUpModal() {
         password
       );
 
-      router.push("/dashboard");
       
       dispatch(
         signInUser({
@@ -71,6 +70,7 @@ function SignUpModal() {
         })
       );
       
+      router.push("/dashboard");
 
       dispatch(closeSignUpModal());
     } catch (error) {
