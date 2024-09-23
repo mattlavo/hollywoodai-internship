@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SettingsDetails from './SettingsDetails'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/redux/store'
@@ -12,12 +12,12 @@ import { signInUser } from '@/redux/slices/userSlice'
 function Settings() {
 
   const user = useSelector((state: RootState) => state.user);
-  console.log(user.subscription)
-
   const dispatch: AppDispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
 
       if (!currentUser) {
         dispatch(signInUser(null));
@@ -54,15 +54,12 @@ function Settings() {
     return () => unsubscribe();
   }, [auth.currentUser]);
 
+
   return (    
     <div className="settings">
         <div className="page-row settings__row">
             <h1 className="settings__title">Settings</h1>
-            { user.email ? (
-              <SettingsDetails />
-            ) : (
-              <SettingsLogin />
-            )}
+            <SettingsDetails />
         </div>
     </div>
   )

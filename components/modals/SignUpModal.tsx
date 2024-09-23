@@ -62,7 +62,7 @@ function SignUpModal() {
       );
 
       router.push("/dashboard");
-
+      
       dispatch(
         signInUser({
           email: userCredentials.user.email,
@@ -70,6 +70,7 @@ function SignUpModal() {
           subscription: null,
         })
       );
+      
 
       dispatch(closeSignUpModal());
     } catch (error) {
@@ -83,8 +84,8 @@ function SignUpModal() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
-
       dispatch(closeSignUpModal());
+      router.push('/dashboard');
     } catch (err) {
       setError(`${err}`);
       console.error(`Error signing in ${err}`);
