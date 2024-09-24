@@ -6,7 +6,12 @@ import SearchResults from "@/components/SearchResults"
 import axios from 'axios';
 import { useDebounce } from '@/hooks/useDebounce';
 
-function DashboardNav() {
+interface DashboardNavProps {
+  sidebarOpen: boolean,
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function DashboardNav({ sidebarOpen, setSidebarOpen}: DashboardNavProps) {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
@@ -49,7 +54,6 @@ function DashboardNav() {
     }
   }, [debouncedSearch])
 
-  console.log(movieResults)
 
 
   return (
@@ -61,7 +65,7 @@ function DashboardNav() {
                   search(event)
                 }} />
             </div>
-            <RxHamburgerMenu className="searchbar__menu" />
+            <RxHamburgerMenu className="searchbar__menu" onClick={() => setSidebarOpen((prev) => !prev)} />
             <SearchResults movieResults={movieResults} isOpen={open} searchQuery={searchQuery} loading={loading} />
         </div>
     </div>

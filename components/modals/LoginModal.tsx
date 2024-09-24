@@ -74,6 +74,7 @@ function LoginModal() {
       console.error(`Error signing in ${err}`);
     } finally {
       setLoading(false);
+      router.push('/dashboard');
     }
   }
 

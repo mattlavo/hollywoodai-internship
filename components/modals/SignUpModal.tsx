@@ -52,7 +52,8 @@ function SignUpModal() {
     }
   }
 
-  async function handleSignUp() {
+  async function handleSignUp(event: React.FormEvent) {
+    event.preventDefault()
     setLoading(true);
     try {
       const userCredentials = await createUserWithEmailAndPassword(
@@ -70,9 +71,11 @@ function SignUpModal() {
         })
       );
       
-      router.push("/dashboard");
-
+      
+      
       dispatch(closeSignUpModal());
+      
+      router.push("/dashboard");
     } catch (error) {
       console.error("Error during sign up", error);
     } finally {
@@ -159,7 +162,7 @@ function SignUpModal() {
             </div>
             <button
               className="modal__form__submit"
-              onClick={() => handleSignUp()}
+              onClick={(event) => handleSignUp(event)}
             >
               {loading ? (
                 <div className="spinner">

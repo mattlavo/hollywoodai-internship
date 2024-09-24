@@ -16,6 +16,10 @@ import { RootState } from "@/redux/store";
 import { openSignUpModal } from "@/redux/slices/modalSlice";
 import { useRouter } from "next/navigation";
 import { AudioPlayerProvider } from "@/context/audio-player-context";
+import { auth } from "@/firebase";
+import { signInUser } from "@/redux/slices/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { getSubscriptionStatus } from "@/stripe/getPremiumStatus";
 
 interface Movie {
   id: string;
@@ -54,12 +58,50 @@ function MoviePage() {
     }
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+
+      if (!currentUser) {
+        dispatch(signInUser(null));
+        return;
+      }
+
+      dispatch(
+        signInUser({
+          email: currentUser.email,
+          uid: currentUser.uid,
+          subscription: null,
+        })
+      );
+
+      const fetchPremium = async () => {
+        const premiumStatus = await getSubscriptionStatus();
+        console.log('premium status:', premiumStatus)
+        dispatch(
+          signInUser({
+            email: currentUser.email,
+            uid: currentUser.uid,
+            subscription: premiumStatus,
+          })
+        );
+      }
+
+      try {
+        fetchPremium();
+      } catch (error) {
+        console.error("Error checking premium status", error);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth.currentUser]);
+
   const summarizeMovie = () => {
     try {
       if (user.email) {
-        if (movie.subscriptionRequired && user.subscription?.toLowerCase() !== "premium") {
+        if (movie.subscriptionRequired && user.subscription?.toLowerCase() !== "hollywood ai - premium") {
           router.push('/plans')
-        } else if (!movie.subscriptionRequired || user.subscription?.toLowerCase() == "premium") {
+        } else if (!movie.subscriptionRequired || user.subscription?.toLowerCase() == "hollywood ai - premium") {
           router.push(`/player/${movie.id}`);
         }
       } else {
@@ -74,6 +116,7 @@ function MoviePage() {
   useEffect(() => {
     fetchMovieData();
   }, []);
+
 
   return (
     <>

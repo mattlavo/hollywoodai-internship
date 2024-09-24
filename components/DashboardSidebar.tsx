@@ -52,12 +52,19 @@ const SidebarLinks = [
   
 ];
 
-function DashboardSidebar() {
+interface DashboardSidebarProps {
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function DashboardSidebar({ sidebarOpen, setSidebarOpen }: DashboardSidebarProps) {
+
+  console.log('Is the sidebar open?', sidebarOpen)
 
   return (
     <>
-      <div className="sidebar--overlay sidebar--overlay--hidden "></div>
-      <div className="sidebar">
+      <div className={`sidebar-overlay ${!sidebarOpen ? 'sidebar-overlay--hidden' : 'false'}`} onClick={() => setSidebarOpen((prev) => !prev)}></div>
+      <div className={`sidebar ${sidebarOpen && 'sidebar--open'}`}>
         <Image
           src={"/assets/logo-dark.png"}
           alt="Sidebar logo"

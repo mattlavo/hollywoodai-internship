@@ -3,13 +3,56 @@ import { RootState } from "@/redux/store";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BsLightningChargeFill } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "./ui/Skeleton";
 import SettingsLogin from "./SettingsLogin";
+import { signInUser } from "@/redux/slices/userSlice";
+import { getSubscriptionStatus } from "@/stripe/getPremiumStatus";
+import { auth } from "@/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 function SettingsDetails() {
   const [loading, setLoading] = useState(true);
   const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+
+      if (!currentUser) {
+        dispatch(signInUser(null));
+        return;
+      }
+
+      dispatch(
+        signInUser({
+          email: currentUser.email,
+          uid: currentUser.uid,
+          subscription: null,
+        })
+      );
+
+      const fetchPremium = async () => {
+        const premiumStatus = await getSubscriptionStatus();
+        console.log('premium status:', premiumStatus)
+        dispatch(
+          signInUser({
+            email: currentUser.email,
+            uid: currentUser.uid,
+            subscription: premiumStatus,
+          })
+        );
+      }
+
+      try {
+        fetchPremium();
+      } catch (error) {
+        console.error("Error checking premium status", error);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth.currentUser]);
 
   useEffect(() => {
     setLoading(true);
@@ -45,7 +88,7 @@ function SettingsDetails() {
     );
   }
 
-  if (!user?.uid) {
+  if (!user?.email) {
     return <SettingsLogin />;
   }
 
@@ -77,8 +120,8 @@ function SettingsDetails() {
       </>
     );
   }
-
   return (
+
     <>
       <div className="settings__detail">
         <h2 className="settings__detail__title">Your Subscription Plan</h2>

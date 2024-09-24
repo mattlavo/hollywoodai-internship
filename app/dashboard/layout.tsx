@@ -16,6 +16,7 @@ function DashboardLayout({
   children: React.ReactNode;
 }>) {
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -56,12 +57,14 @@ function DashboardLayout({
   }, [auth.currentUser]);
 
 
+  console.log(sidebarOpen)
+
 
   return (
     <div className="">
-      <DashboardSidebar />
+      <DashboardSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="page-content">
-        <DashboardNav />
+        <DashboardNav sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         {children}
       </div>
     </div>
