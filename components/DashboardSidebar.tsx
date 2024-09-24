@@ -16,7 +16,7 @@ import StoreProvider from "@/redux/StoreProvider";
 import { signOutUser } from "@/redux/slices/userSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/firebase";
-import { openLoginModal } from "@/redux/slices/modalSlice";
+import { closeDashboardSidebar, openLoginModal } from "@/redux/slices/modalSlice";
 
 const SidebarLinks = [
   {
@@ -52,18 +52,20 @@ const SidebarLinks = [
   
 ];
 
-interface DashboardSidebarProps {
-  sidebarOpen: boolean;
-  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-function DashboardSidebar({ sidebarOpen, setSidebarOpen }: DashboardSidebarProps) {
 
-  console.log('Is the sidebar open?', sidebarOpen)
+function DashboardSidebar() {
+
+
+  const sidebarOpen = useSelector(
+    (state: RootState) => state.modals.dashboardSidebar
+  );
+
+  const dispatch = useDispatch()
 
   return (
     <>
-      <div className={`sidebar-overlay ${!sidebarOpen ? 'sidebar-overlay--hidden' : 'false'}`} onClick={() => setSidebarOpen((prev) => !prev)}></div>
+      <div className={`sidebar-overlay ${!sidebarOpen ? 'sidebar-overlay--hidden' : 'false'}`} onClick={() => dispatch(closeDashboardSidebar())}></div>
       <div className={`sidebar ${sidebarOpen && 'sidebar--open'}`}>
         <Image
           src={"/assets/logo-dark.png"}

@@ -1,7 +1,6 @@
 "use client";
 import DashboardNav from "@/components/DashboardNav";
 import DashboardSidebar from "@/components/DashboardSidebar";
-import StoreProvider from "@/redux/StoreProvider";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
@@ -62,9 +61,9 @@ function DashboardLayout({
 
   return (
     <div className="">
-      <DashboardSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <DashboardSidebar  />
       <div className="page-content">
-        <DashboardNav sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <DashboardNav  />
         {children}
       </div>
     </div>

@@ -5,18 +5,19 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import SearchResults from "@/components/SearchResults"
 import axios from 'axios';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useDispatch } from 'react-redux';
+import { openDashboardSidebar } from '@/redux/slices/modalSlice';
 
-interface DashboardNavProps {
-  sidebarOpen: boolean,
-  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-function DashboardNav({ sidebarOpen, setSidebarOpen}: DashboardNavProps) {
+
+function DashboardNav() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [movieResults, setMovieResults] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
   
   const debouncedSearch = useDebounce(searchQuery);
 
@@ -65,7 +66,7 @@ function DashboardNav({ sidebarOpen, setSidebarOpen}: DashboardNavProps) {
                   search(event)
                 }} />
             </div>
-            <RxHamburgerMenu className="searchbar__menu" onClick={() => setSidebarOpen((prev) => !prev)} />
+            <RxHamburgerMenu className="searchbar__menu" onClick={() => dispatch(openDashboardSidebar())} />
             <SearchResults movieResults={movieResults} isOpen={open} searchQuery={searchQuery} loading={loading} />
         </div>
     </div>
