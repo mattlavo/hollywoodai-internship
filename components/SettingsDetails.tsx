@@ -12,15 +12,15 @@ import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 function SettingsDetails() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Start in loading state
   const user = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-
       if (!currentUser) {
         dispatch(signInUser(null));
+        setLoading(false); 
         return;
       }
 
@@ -34,7 +34,6 @@ function SettingsDetails() {
 
       const fetchPremium = async () => {
         const premiumStatus = await getSubscriptionStatus();
-        console.log('premium status:', premiumStatus)
         dispatch(
           signInUser({
             email: currentUser.email,
@@ -42,28 +41,19 @@ function SettingsDetails() {
             subscription: premiumStatus,
           })
         );
-      }
+      };
 
       try {
-        fetchPremium();
+        await fetchPremium();
       } catch (error) {
         console.error("Error checking premium status", error);
+      } finally {
+        setLoading(false); 
       }
     });
 
     return () => unsubscribe();
-  }, [auth.currentUser]);
-
-  useEffect(() => {
-    setLoading(true);
-    try {
-      console.log("ye");
-    } catch (error) {
-      console.error("");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  }, [dispatch]);
 
   if (loading) {
     return (
@@ -92,40 +82,19 @@ function SettingsDetails() {
     return <SettingsLogin />;
   }
 
-  if (user?.subscription === null) {
-    return (
-      <>
-        <div className="settings__detail">
-          <h2 className="settings__detail__title">Your Subscription Plan</h2>
-          {user.subscription === null ? (
-            <>
-              <span className="settings__detail__text">Basic</span>
-              <Link href="/plans" className="settings__detail__button">
-                <span className="settings__detail__button__text">Upgrade</span>
-                <BsLightningChargeFill className="settings__detail__button__icon" />
-              </Link>
-            </>
-          ) : (
-            <>
-              <span className="settings__detail__text">
-                {user.subscription}
-              </span>
-            </>
-          )}
-        </div>
-        <div className="settings__detail">
-          <h2 className="settings__detail__title">Email</h2>
-          <span className="settings__detail__text">{user.email}</span>
-        </div>
-      </>
-    );
-  }
   return (
-
     <>
       <div className="settings__detail">
         <h2 className="settings__detail__title">Your Subscription Plan</h2>
-        <span className="settings__detail__text">{user.subscription}</span>
+        <span className="settings__detail__text">
+          {user.subscription || "Basic"}
+        </span>
+        {user.subscription === null && (
+          <Link href="/plans" className="settings__detail__button">
+            <span className="settings__detail__button__text">Upgrade</span>
+            <BsLightningChargeFill className="settings__detail__button__icon" />
+          </Link>
+        )}
       </div>
       <div className="settings__detail">
         <h2 className="settings__detail__title">Email</h2>
@@ -133,8 +102,6 @@ function SettingsDetails() {
       </div>
     </>
   );
-
- 
 }
 
 export default SettingsDetails;
