@@ -1,6 +1,6 @@
 # HollywoodAI - Movie Summary AI Application
 
-<img width="1440" alt="HollywoodAI Image" src="https://i.postimg.cc/vHTkwZz3/image.png">
+<img width="1440" alt="HollywoodAI Image" src="https://i.postimg.cc/vHTkwZz3/image.png](https://i.postimg.cc/Fz8F1mHW/hollywoodai.png">
 
 Developed and deployed a user-friendly platform for AI-powered film summaries, achieving a 95% satisfaction rate based on feedback on accuracy and readability, using Next.js. TypeScript, Firebase.
 
